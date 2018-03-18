@@ -1,4 +1,5 @@
 import cv2
+face_cascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
 
 
 # Start Video Capture
@@ -24,10 +25,15 @@ while True:
 
     # delta frame - to compare current situation with initial situation
     delta_frame = abs(first_frame - gray_frame)
-
+    print(delta_frame)
 
     # show current frame video
-     # resize the video
+     # Detect faces
+    faces = face_cascade.detectMultiScale(gray_frame, scaleFactor=1.1, minNeighbors=5)
+
+    for (x, y, w, h) in faces:
+        cv2.rectangle(gray_frame, (x, y), (x + w, y + h), (0, 230, 0), 3)
+
     current_resize = cv2.resize(gray_frame, (gray_frame.shape[1]//2, gray_frame.shape[0]//2))
     cv2.imshow("Current Frame", current_resize)
 

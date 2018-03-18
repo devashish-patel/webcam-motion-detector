@@ -28,6 +28,7 @@ while True:
     gray_frame = cv2.GaussianBlur(gray_frame, (21, 21), 0)
 
     if first_frame is None:
+        status_list.append(0)
         first_frame = gray_frame
         continue
 
@@ -59,25 +60,25 @@ while True:
         time.append(datetime.now())
 
     # show color frame (To show all objects)
-    color_resize = cv2.resize(frame, (frame.shape[1] // 4, frame.shape[0] // 4))
+    color_resize = cv2.resize(frame, (frame.shape[1] // 2, frame.shape[0] // 2))
     cv2.imshow("Color Frame", color_resize)
+
+    # show current frame video ( For face detection)
+    # Detect faces
+    faces = face_cascade.detectMultiScale(gray_frame, scaleFactor=1.1, minNeighbors=5)
+    for (x, y, w, h) in faces:
+        cv2.rectangle(gray_frame, (x, y), (x + w, y + h), (0, 230, 0), 3)
+    current_resize = cv2.resize(gray_frame, (gray_frame.shape[1] // 3, gray_frame.shape[0] // 3))
+    cv2.imshow("Current Frame", current_resize)
 
     # show threshold frame (To identify object)
     threshold_resize = cv2.resize(threshold_frame, (threshold_frame.shape[1] // 4, threshold_frame.shape[0] // 4))
     cv2.imshow("Throshold Frame", threshold_resize)
 
     # show delta frame video (to check difference)
-    # Detect faces
-    faces = face_cascade.detectMultiScale(gray_frame, scaleFactor=1.1, minNeighbors=5)
-    for (x, y, w, h) in faces:
-        cv2.rectangle(gray_frame, (x, y), (x + w, y + h), (0, 230, 0), 3)
     # resize the video
-    delta_resize = cv2.resize(delta_frame, (delta_frame.shape[1]//4, delta_frame.shape[0]//4))
+    delta_resize = cv2.resize(delta_frame, (delta_frame.shape[1]//5, delta_frame.shape[0]//5))
     cv2.imshow("Delta Frame", delta_resize)
-
-    # show current frame video ( For face detection)
-    current_resize = cv2.resize(gray_frame, (gray_frame.shape[1] // 4, gray_frame.shape[0] // 4))
-    cv2.imshow("Current Frame", current_resize)
 
     key = cv2.waitKey(1)
     # press 'q' to exit the window
@@ -86,9 +87,8 @@ while True:
             time.append(datetime.now())
         break
 
-
-for cur_time in (0, len(time), 2):
-    df = df.append({"Start": time[cur_time], "End": time[cur_time+1]}, ignore_index=True)
+for i in range(0, len(time), 2):
+    df = df.append({"Start": time[i], "End": time[i+1]}, ignore_index=True)
 
 df.to_csv("Time.csv")
 # Stop Video Capture

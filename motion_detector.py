@@ -2,7 +2,7 @@ import cv2, pandas as pd
 from datetime import datetime
 
 face_cascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
-
+#fourcc=cv2.VideoWriter_fourcc(*'DIVX')
 
 # Start Video Capture
 video = cv2.VideoCapture(0)
@@ -47,7 +47,10 @@ while True:
     for contour in cnts:
         if cv2.contourArea(contour) < 10000:
             continue
+        #cv2.imwrite("./img/" + str(datetime.now()) + ".jpg", frame)
         status = 1
+        if video1:
+            out.write(frame)
         (xc, yc, w, h) = cv2.boundingRect(contour)
         cv2.rectangle(frame, (xc, yc), (xc + w, yc + h), (0, 230, 0), 3)
 
@@ -59,9 +62,15 @@ while True:
 
     # check last two status and if it's a change then add timing
     if status_list[-1] == 1 and status_list[-2] == 0: # 0 -> 1
+        cv2.imwrite("./img/"+str(datetime.now())+".jpg",frame)
+        #out = cv2.VideoWriter("./img/"+str(datetime.now().strftime("%Y-%m-%d-%H-%M-%S")) + '.avi', fourcc, 32.0, (640, 360), 1)
+        #out.write(frame)
+        #video1 = True
         time.append(datetime.now())
     elif status_list[-1] == 0 and status_list[-2] == 1: # 1 -> 0
         time.append(datetime.now())
+        video1 = False
+        #out.release()
 
     # show color frame (To show all objects)
     color_resize = cv2.resize(frame, (frame.shape[1] // 2, frame.shape[0] // 2))
@@ -77,7 +86,7 @@ while True:
 
     # show threshold frame (To identify object)
     threshold_resize = cv2.resize(threshold_frame, (threshold_frame.shape[1] // 4, threshold_frame.shape[0] // 4))
-    cv2.imshow("Throshold Frame", threshold_resize)
+    cv2.imshow("Threshold Frame", threshold_resize)
 
     # show delta frame video (to check difference)
     # resize the video

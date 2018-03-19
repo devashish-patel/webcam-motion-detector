@@ -1,5 +1,6 @@
 import cv2, pandas as pd
 from datetime import datetime
+
 face_cascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
 
 
@@ -53,6 +54,9 @@ while True:
     # append the status after each iteration
     status_list.append(status)
 
+    # to improve the memory and keep running device for long time
+    status_list = status_list[-2:]
+
     # check last two status and if it's a change then add timing
     if status_list[-1] == 1 and status_list[-2] == 0: # 0 -> 1
         time.append(datetime.now())
@@ -91,6 +95,7 @@ for i in range(0, len(time), 2):
     df = df.append({"Start": time[i], "End": time[i+1]}, ignore_index=True)
 
 df.to_csv("Time.csv")
+
 # Stop Video Capture
 video.release()
 cv2.destroyAllWindows()

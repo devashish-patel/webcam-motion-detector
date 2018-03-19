@@ -1,0 +1,4 @@
+[PyInstaller.hooks]
+hooks = true
+runtime-hooks = true
+

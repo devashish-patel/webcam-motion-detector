@@ -7,19 +7,19 @@
 ###  Overview of Project:
 
 ------------
-1. Before you execute the project, please cover your webcam and remove the cover once your webcam starts and you can see some video recording windows on your desktop.
-1. You will see four different windows on your screen.
+- Before you execute the project, please cover your webcam and remove the cover once your webcam starts and you can see some video recording windows on your desktop.
+- You will see four different windows on your screen.
  - Color Frame: Which detects the different objects
  - Current Frame: Which detects the human face
  - Delta Frame*: Which compares the current situation the with the initial situation 
  - Threshold frame* - for identification of an object 
  - *not important for end-user
-1. Try Like this...
+- Try Like this...
 
  - ![](https://thumbs.gfycat.com/AggravatingThisInsect-size_restricted.gif)
  
-1. At any moment if you want to stop, please press `q`
-1. A motion graph will be generated and automatically your default browser will pop-up where you can see it like this...
+- At any moment if you want to stop, please press `q`
+- A motion graph will be generated and automatically your default browser will pop-up where you can see it like this...
  - ![](https://thumbs.gfycat.com/SeriousVibrantAppaloosa-size_restricted.gif)
 
 

@@ -60,7 +60,7 @@ while True:
 
     # check last two status and if it's a change then add timing
     if status_list[-1] == 1 and status_list[-2] == 0: # 0 -> 1
-        cv2.imwrite("./img/"+str(datetime.now())+".jpg",frame)
+        #cv2.imwrite("./img/"+str(datetime.now())+".jpg",frame)
         time.append(datetime.now())
     elif status_list[-1] == 0 and status_list[-2] == 1: # 1 -> 0
         time.append(datetime.now())

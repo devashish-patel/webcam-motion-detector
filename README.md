@@ -35,5 +35,3 @@
 - Write command `venv/bin/python plotting.py`
 #### WINDOWS Users:
 - Virtual Environment for Windows user will be available soon.
-
-*Suggestions and Questions are always welcomed, please e-mail me at devashish2910@gmail.com or create an issue*
